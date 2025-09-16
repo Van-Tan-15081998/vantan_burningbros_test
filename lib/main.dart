@@ -30,8 +30,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
         ChangeNotifierProvider(create: (_) => NetworkProvider()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
@@ -39,7 +39,6 @@ class _MyAppState extends State<MyApp> {
         title: 'Product Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue),
-        // home: ProductListScreen(),
         home: Scaffold(body: ConnectivityWidget(child: ProductListScreen())),
         builder: (context, child) {
           final productProvider = Provider.of<ProductProvider>(context, listen: false);
@@ -68,7 +67,7 @@ class _MyAppState extends State<MyApp> {
                       duration: const Duration(seconds: 2),
                     ),
                   );
-                  notifier.clear();
+                  notifier.onClear();
                 });
               }
               return childWidget!;

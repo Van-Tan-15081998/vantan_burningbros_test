@@ -1,4 +1,4 @@
-import 'package:product_demo/state_management/mixins/app_providers.dart';
+import 'package:product_demo/state_management/mixins/provider_mixin.dart';
 import 'package:product_demo/state_management/product/favorite_provider.dart';
 import 'package:product_demo/state_management/product/product_provider.dart';
 import 'package:product_demo/state_management/system/network_provider.dart';

@@ -1,8 +1,13 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:product_demo/services/api/abstracts/api_abstract.dart';
 
 class ProductApi extends ApiAbstract {
+
+  ///
+  /// TODO: Constructor
+  ///
   ProductApi({required super.baseUrl, required super.urlParameter});
 
   @override
@@ -19,7 +24,7 @@ class ProductApi extends ApiAbstract {
   /// TODO:
   ///
   @override
-  Future<List> fetchListItem(int skip, int limit) async {
+  Future<List> onFetchListItem(int skip, int limit) async {
     urlParameter?.setSkip(value: skip);
     urlParameter?.setLimit(value: limit);
 
@@ -42,7 +47,7 @@ class ProductApi extends ApiAbstract {
   /// TODO:
   ///
   @override
-  Future<List> searchListItem(int skip, int limit, String query) async {
+  Future<List> onSearchListItem(int skip, int limit, String query) async {
     urlParameter?.setSkip(value: skip);
     urlParameter?.setLimit(value: limit);
     urlParameter?.setQueryString(value: query);

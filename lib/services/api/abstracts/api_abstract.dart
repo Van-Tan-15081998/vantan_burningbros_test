@@ -48,6 +48,9 @@ abstract class ApiAbstract {
     _searchListItemUrl = value;
   }
 
+  ///
+  /// TODO:
+  ///
   UrlParameter? _urlParameter;
   UrlParameter? get urlParameter => _urlParameter;
   void setUrlParameter({required UrlParameter? value}) {
@@ -76,10 +79,10 @@ abstract class ApiAbstract {
   ///
   /// TODO:
   ///
-  Future<List<dynamic>> fetchListItem(int skip, int limit);
+  Future<List<dynamic>> onFetchListItem(int skip, int limit);
 
   ///
   /// TODO:
   ///
-  Future<List<dynamic>> searchListItem(int skip, int limit, String query);
+  Future<List<dynamic>> onSearchListItem(int skip, int limit, String query);
 }

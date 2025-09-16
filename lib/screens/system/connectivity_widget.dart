@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:product_demo/state_management/system/network_provider.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +12,7 @@ class ConnectivityWidget extends StatefulWidget {
 }
 
 class _ConnectivityWidgetState extends State<ConnectivityWidget> {
-  NetworkProvider? networkProvider;
+  NetworkProvider? _networkProvider;
 
   bool _isConnecting = true;
 
@@ -21,13 +20,13 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
   void initState() {
     super.initState();
 
-    networkProvider = Provider.of<NetworkProvider>(context, listen: false);
+    _networkProvider = Provider.of<NetworkProvider>(context, listen: false);
 
     ///
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await networkProvider?.init();
+      await _networkProvider?.onInit();
 
-      if (networkProvider?.isConnected == true) {
+      if (_networkProvider?.isConnected == true) {
         setState(() {
           _isConnecting = false;
         });

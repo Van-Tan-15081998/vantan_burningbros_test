@@ -1,4 +1,3 @@
-import 'package:product_demo/services/api/abstracts/url_parameter.dart';
 import 'package:product_demo/services/api/product/product_api.dart';
 
 class ApiService {
@@ -6,7 +5,7 @@ class ApiService {
   String get baseUrl => _baseUrl;
 
   ///
-  /// TODO: Constructor
+  /// TODO:
   ///
   ProductApi? _productApi;
   ProductApi? get productApi => _productApi;

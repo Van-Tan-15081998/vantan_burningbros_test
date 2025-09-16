@@ -1,16 +1,22 @@
 # product_demo
 
-A new Flutter project.
+Run the Project:
 
-## Getting Started
+1. System Requirements:
+   - Flutter SDK: 3.32.0
+   - Dart SDK: included with Flutter
+   - Android Studio / VS Code (for development).
 
-This project is a starting point for a Flutter application.
+2. Clone the Repository & Install Dependencies:
+   - git clone https://github.com/Van-Tan-15081998/vantan_burningbros_test.git
+   - cd product_demo.
+   - command: flutter pub get.
 
-A few resources to get you started if this is your first Flutter project:
+3. Platform Configuration:
+   - Android:
+     + Check android/app/build.gradle for minSdkVersion and ndkVersion
+     + Ensure Internet permission is enabled in AndroidManifest.xml
+       <uses-permission android:name="android.permission.INTERNET" />
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. Run the App:
+   - command: flutter run

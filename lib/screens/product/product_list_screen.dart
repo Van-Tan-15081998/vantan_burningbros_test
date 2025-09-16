@@ -15,30 +15,30 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   final _searchController = TextEditingController();
 
-  ProductProvider? productProvider;
+  ProductProvider? _productProvider;
 
   @override
   void initState() {
     super.initState();
-    productProvider = Provider.of<ProductProvider>(context, listen: false);
+    _productProvider = Provider.of<ProductProvider>(context, listen: false);
 
     _scrollController.addListener(() async {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        await productProvider?.fetchProducts(loadMore: true);
+        await _productProvider?.onFetchPagination(loadMore: true);
       }
     });
 
     ///
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await productProvider?.networkProvider?.onReCheckStatus();
+      await _productProvider?.networkProvider?.onReCheckStatus();
 
-      if (productProvider?.urlParameter?.queryString?.isNotEmpty == true) {
-        _searchController.text = productProvider?.urlParameter?.queryString ?? '';
+      if (_productProvider?.urlParameter?.queryString?.isNotEmpty == true) {
+        _searchController.text = _productProvider?.urlParameter?.queryString ?? '';
       }
 
-      await productProvider?.favoriteProvider?.loadFavorites();
+      await _productProvider?.favoriteProvider?.onLoadFavorites();
 
-      await productProvider?.fetchProducts();
+      await _productProvider?.onFetchPagination();
     });
   }
 
@@ -46,7 +46,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void dispose() {
     // TODO: implement dispose
 
-    productProvider?.onReset();
+    _productProvider?.onReset();
 
     super.dispose();
   }
@@ -60,7 +60,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
             return TextField(
               controller: _searchController,
               onChanged: (value) {
-                productProvider?.search(value);
+                _productProvider?.onSearch(query: value);
               },
               cursorColor: Colors.blue,
               cursorWidth: 2.0,
@@ -68,12 +68,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
               decoration: InputDecoration(
                 hintText: 'Search products...',
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                suffixIcon: productProvider?.urlParameter?.queryString?.isNotEmpty == true
+                suffixIcon: _productProvider?.urlParameter?.queryString?.isNotEmpty == true
                     ? IconButton(
                         icon: const Icon(Icons.clear, color: Colors.grey),
                         onPressed: () {
                           _searchController.text = '';
-                          productProvider?.search('');
+                          _productProvider?.onSearch(query: '');
                         },
                       )
                     : Container(),
@@ -107,7 +107,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
-                      provider.fetchProducts(loadMore: false);
+                      provider.onFetchPagination(loadMore: false);
                     },
                     child: Text("Retry"),
                   ),
@@ -144,7 +144,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 trailing: IconButton(
                   icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border, color: isFavorite ? Colors.red : null),
                   onPressed: () {
-                    provider.favoriteProvider?.toggleFavorite(product.id);
+                    provider.favoriteProvider?.onToggleFavorite(id: product.id);
                   },
                 ),
               );

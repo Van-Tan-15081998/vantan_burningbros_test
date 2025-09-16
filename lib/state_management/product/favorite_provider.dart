@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:product_demo/services/app_services.dart';
 import 'package:product_demo/state_management/app_providers.dart';
-import 'package:product_demo/state_management/mixins/app_providers.dart';
+import 'package:product_demo/state_management/mixins/provider_mixin.dart';
 
 class FavoriteProvider with ChangeNotifier, ProviderMixin {
   FavoriteProvider();
@@ -18,8 +18,8 @@ class FavoriteProvider with ChangeNotifier, ProviderMixin {
   ///
   /// TODO:
   ///
-  Future<void> loadFavorites() async {
-    final ids = await AppServices().databaseService?.favoriteProductDB?.getAllFavorites() ?? [];
+  Future<void> onLoadFavorites() async {
+    final ids = await AppServices().databaseService?.favoriteProductDB?.onGetAllFavorites() ?? [];
     _favoriteIds.clear();
     _favoriteIds.addAll(ids);
     notifyListeners();
@@ -33,27 +33,28 @@ class FavoriteProvider with ChangeNotifier, ProviderMixin {
   ///
   /// TODO:
   ///
-  Future<void> toggleFavorite(int id) async {
+  Future<void> onToggleFavorite({required int id}) async {
     if (isFavorite(id)) {
       _favoriteIds.remove(id);
-      await AppServices().databaseService?.favoriteProductDB?.removeFavorite(id);
+      await AppServices().databaseService?.favoriteProductDB?.onRemoveFavorite(id);
 
-      notificationProvider?.show('Removed from favorites', backgroundColor: Colors.greenAccent);
+      notificationProvider?.onShow('Removed from favorites', backgroundColor: Colors.greenAccent);
     } else {
       _favoriteIds.add(id);
-      await AppServices().databaseService?.favoriteProductDB?.addFavorite(id);
+      await AppServices().databaseService?.favoriteProductDB?.onAddFavorite(id);
 
-      notificationProvider?.show('Added to favorites', backgroundColor: Colors.greenAccent);
+      notificationProvider?.onShow('Added to favorites', backgroundColor: Colors.greenAccent);
     }
+
     notifyListeners();
   }
 
   ///
   /// TODO:
   ///
-  Future<void> clearAll() async {
+  Future<void> onClearAll() async {
     _favoriteIds.clear();
-    await AppServices().databaseService?.favoriteProductDB?.clearFavorites();
+    await AppServices().databaseService?.favoriteProductDB?.onClearFavorites();
     notifyListeners();
   }
 }
