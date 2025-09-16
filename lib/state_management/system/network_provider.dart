@@ -40,6 +40,7 @@ class NetworkProvider with ChangeNotifier, ProviderMixin {
   ///
   Future<void> onReCheckStatus() async {
     final result = await _connectivity.checkConnectivity();
+
     _onUpdateStatus(result);
   }
 

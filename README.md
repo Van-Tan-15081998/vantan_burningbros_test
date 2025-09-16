@@ -20,3 +20,10 @@ Run the Project:
 
 4. Run the App:
    - command: flutter run
+
+5. Build file APK:
+   - command: flutter build apk --release
+
+6. Pre-built:
+   - The pre-built file is available in the `/build_release` folder.
+   - For Android: copy the `.apk` to your device and install it.

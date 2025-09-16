@@ -141,16 +141,17 @@ class ProductProvider with ChangeNotifier, ProviderMixin {
   /// TODO:
   ///
   void onSearch({required String query}) {
-    _urlParameter?.setSkip(value: 0);
-    _urlParameter?.setCountAllLoaded(value: 0);
-    _products.clear();
-
-    _urlParameter?.setQueryString(value: query);
-
     /// If debounce is active => cancel
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () async {
+
+      _urlParameter?.setSkip(value: 0);
+      _urlParameter?.setCountAllLoaded(value: 0);
+      _products.clear();
+
+      _urlParameter?.setQueryString(value: query);
+
       await onFetchPagination(loadMore: true);
     });
   }

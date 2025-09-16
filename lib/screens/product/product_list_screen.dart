@@ -54,43 +54,96 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Consumer<ProductProvider>(
-          builder: (context, provider, child) {
-            return TextField(
-              controller: _searchController,
-              onChanged: (value) {
-                _productProvider?.onSearch(query: value);
+      // appBar: AppBar(
+      //   title: Consumer<ProductProvider>(
+      //     builder: (context, provider, child) {
+      //       return Container(
+      //         height: 50, // đảm bảo có chỗ hiển thị caret
+      //         alignment: Alignment.centerLeft,
+      //         child: TextField(
+      //           controller: _searchController,
+      //           autofocus: true,
+      //           onChanged: (value) {
+      //             _productProvider?.onSearch(query: value);
+      //           },
+      //           cursorColor: Colors.blue,
+      //           cursorWidth: 2.0,
+      //           cursorRadius: const Radius.circular(4),
+      //           decoration: InputDecoration(
+      //             hintText: 'Search products...',
+      //             isDense: true,
+      //             prefixIcon: const Icon(Icons.search, color: Colors.grey),
+      //             suffixIcon: _productProvider?.urlParameter?.queryString?.isNotEmpty == true
+      //                 ? IconButton(
+      //                     icon: const Icon(Icons.clear, color: Colors.grey),
+      //                     onPressed: () {
+      //                       _searchController.text = '';
+      //                       _productProvider?.onSearch(query: '');
+      //                     },
+      //                   )
+      //                 : Container(),
+      //             filled: true,
+      //             fillColor: Colors.grey[200],
+      //             contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      //             enabledBorder: OutlineInputBorder(
+      //               borderRadius: BorderRadius.circular(12),
+      //               borderSide: const BorderSide(color: Colors.transparent),
+      //             ),
+      //             focusedBorder: OutlineInputBorder(
+      //               borderRadius: BorderRadius.circular(12),
+      //               borderSide: const BorderSide(color: Colors.blue, width: 1.5),
+      //             ),
+      //           ),
+      //         ),
+      //       );
+      //     },
+      //   ),
+      // ),
+
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60), // chiều cao AppBar
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Consumer<ProductProvider>(
+              builder: (context, provider, child) {
+                return TextField(
+                  controller: _searchController,
+                  cursorColor: Colors.blue,
+                  cursorWidth: 2.0,
+                  cursorRadius: const Radius.circular(4),
+                  onChanged: (value) {
+                    _productProvider?.onSearch(query: value);
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search products...',
+                    prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                    suffixIcon: _productProvider?.urlParameter?.queryString?.isNotEmpty == true
+                        ? IconButton(
+                      icon: const Icon(Icons.clear, color: Colors.grey),
+                      onPressed: () {
+                        _searchController.text = '';
+                        _productProvider?.onSearch(query: '');
+                      },
+                    )
+                        : null,
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Colors.blue, width: 1.5),
+                    ),
+                  ),
+                );
               },
-              cursorColor: Colors.blue,
-              cursorWidth: 2.0,
-              cursorRadius: const Radius.circular(4),
-              decoration: InputDecoration(
-                hintText: 'Search products...',
-                prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                suffixIcon: _productProvider?.urlParameter?.queryString?.isNotEmpty == true
-                    ? IconButton(
-                        icon: const Icon(Icons.clear, color: Colors.grey),
-                        onPressed: () {
-                          _searchController.text = '';
-                          _productProvider?.onSearch(query: '');
-                        },
-                      )
-                    : Container(),
-                filled: true,
-                fillColor: Colors.grey[200],
-                contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.transparent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.blue, width: 1.5),
-                ),
-              ),
-            );
-          },
+            ),
+          ),
         ),
       ),
 

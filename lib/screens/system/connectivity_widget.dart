@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:product_demo/state_management/system/network_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,8 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
 
   bool _isConnecting = true;
 
+  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +34,22 @@ class _ConnectivityWidgetState extends State<ConnectivityWidget> {
           _isConnecting = false;
         });
       }
+
+      _timer = Timer(const Duration(seconds: 3), () {
+        if (_networkProvider?.isConnected == false) {
+          setState(() {
+            _isConnecting = false;
+          });
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+
+    super.dispose();
   }
 
   @override
